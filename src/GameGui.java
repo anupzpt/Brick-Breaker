@@ -29,9 +29,10 @@ public class GameGui extends JPanel implements KeyListener, ActionListener {
     public void paint(Graphics g){
         //background
         g.setColor(Color.black);
-        g.fillRect(1,1,692,592);
+        g.fillRect(1,1,600,592);
         //drawing map
         map.draw((Graphics2D)g);
+
         //border
         g.setColor(Color.black);
         g.fillRect(0,0,3,592);
@@ -43,11 +44,32 @@ public class GameGui extends JPanel implements KeyListener, ActionListener {
         g.drawString(""+score,450,30);
         //paddle
         g.setColor(Color.blue);
-        g.fillRect(playerX,550,100,8);
+        g.fillRect(playerX,550,50,8);
 
         //ball
         g.setColor(Color.white);
         g.fillOval(ballposX,ballposY,20,20);
+        if(totalBricks<=0){
+            play=false;
+            ballXdir =0;
+            ballYdir=0;
+            g.setColor(Color.red);
+            g.setFont(new Font("serif",Font.BOLD,20));
+            g.drawString("You Won ",190,300);
+            g.setFont(new Font("serif",Font.BOLD,20));
+            g.drawString("Press Enter to Restart ",280,350);
+        }
+        if(ballposY > 570){
+            play=false;
+            ballXdir =0;
+            ballYdir=0;
+            g.setColor(Color.red);
+            g.setFont(new Font("serif",Font.BOLD,20));
+            g.drawString("Game Over",190,300);
+            g.setFont(new Font("serif",Font.BOLD,20));
+            g.drawString("Press Enter to Restart ",190,350);
+
+        }
         g.dispose();
 
     }
@@ -114,8 +136,8 @@ public class GameGui extends JPanel implements KeyListener, ActionListener {
     @Override
     public void keyPressed(KeyEvent e) {
     if(e.getKeyCode()==KeyEvent.VK_RIGHT){
-        if(playerX >=480){
-            playerX=480;
+        if(playerX >=500){
+            playerX=500;
         }
         else {
             moveRight();
@@ -127,6 +149,21 @@ public class GameGui extends JPanel implements KeyListener, ActionListener {
         }
         else {
             moveLeft();
+        }
+    }
+    if(e.getKeyCode()==KeyEvent.VK_ENTER)
+    {
+        if(!play){
+            play =true;
+            ballposX=120;
+            ballposY=350;
+            ballXdir=-1;
+            ballYdir=-2;
+            playerX=310;
+            score=0;
+            totalBricks =21;
+            map =new Map(3,7);
+            repaint();
         }
     }
     }
