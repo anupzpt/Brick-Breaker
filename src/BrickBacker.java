@@ -7,7 +7,7 @@ public class BrickBacker {
     void BrickerFrame(){
         frame.setSize(600,600);
         frame.add(panel);
-        frame.setTitle("Break Brick");
+        frame.setTitle("Brick Breaker");
         frame.setResizable(false);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
